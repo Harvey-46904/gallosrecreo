@@ -19,3 +19,5 @@ Route::get('/', function () {
 
 
 Route::resource("ave","AvesController");
+Route::resource("hclinica","HclinicaController");
+Route::resource("Eventos","EventosController");
