@@ -17,17 +17,17 @@
 
             @if (Session::get('crear'))
                 <div class="alert alert-secondary" role="alert">
-                This is a secondary alert—check it out!
+                Campo Creado Con Exito !!!
                 </div>
             @endif
             @if (Session::get('actualiza'))
                 <div class="alert alert-success" role="alert">
-                This is a success alert—check it out!
+                Actualizacion Exitosa !!!
                 </div>
             @endif
             @if (Session::get('elimina'))
                 <div class="alert alert-danger" role="alert">
-                This is a danger alert—check it out!
+                Campo Eliminado Con Exito !!!
                 </div>
             @endif
                        
