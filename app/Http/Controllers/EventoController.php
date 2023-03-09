@@ -14,7 +14,8 @@ class EventoController extends Controller
      */
     public function index()
     {
-        //
+        $lista_Eventos=Eventos::all();
+        return view("Eventos.Eventos",compact("lista_Eventos"));  
     }
 
     /**
@@ -24,7 +25,7 @@ class EventoController extends Controller
      */
     public function create()
     {
-        //
+        return view("Eventos.formulario_Eventos");
     }
 
     /**
@@ -35,16 +36,20 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $agregar=new Eventos;
+        $agregar->Descripcion=$request->Descripcion;
+        $agregar->save();
+        return  Redirect::to('/Eventos')->with('crear', 'se creo la descripcion correctamente');
+        //return response (["data"=>$request->all()]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\evento  $evento
+     * @param  \App\Models\Eventos  $eventos
      * @return \Illuminate\Http\Response
      */
-    public function show(evento $evento)
+    public function show(Eventos $eventos)
     {
         //
     }
@@ -52,33 +57,40 @@ class EventoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\evento  $evento
+     * @param  \App\Models\Eventos  $eventos
      * @return \Illuminate\Http\Response
      */
-    public function edit(evento $evento)
+    public function edit($evento)
     {
-        //
+        //return response (["date"=>("hola")]);
+       
+        return response(["data"=>$evento]);
+        return view("Eventos.editar_eventos",compact("eventos"));
+        //compact se ignifica que toda una variable la retorne en una array
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\evento  $evento
+     * @param  \App\Models\Eventos  $eventos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, evento $evento)
+    public function update(Request $request, Eventos $eventos)
     {
-        //
+        $agregar=$eventos;
+        $agregar->Descripcion=$request->Descripcion;
+        $agregar->save();
+        return  Redirect::to('/Eventos')->with('crear', 'se creo la descripcion correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\evento  $evento
+     * @param  \App\Models\Eventos  $eventos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(evento $evento)
+    public function destroy(Eventos $eventos)
     {
         //
     }

@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::resource("ave","AvesController");
+Route::resource("eventos","EventoController");
