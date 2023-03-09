@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\CarnetController;
+use App\Http\Controllers\HClinicaController;
 use App\Models\Aves;
 use Illuminate\Http\Request;
 use Redirect;
@@ -49,7 +50,20 @@ class AvesController extends Controller
        $agregar_pollo->Fecha_nacimiento=$request->Fecha_nacimiento;
        $agregar_pollo->Observacion=$request->Observacion;
        $agregar_pollo->save();
-       return  Redirect::to('/ave')->with('crear', 'El cliente se creo correctamente');
+
+       $objeto = new CarnetController();
+       $historia = new HClinicaController();
+       $creacion_carnet = $objeto->crear_carnet($agregar_pollo->id);
+       $id_evento=1;
+       
+       $creacion_historia=$historia->crear_historia($creacion_carnet->id,$id_evento);
+       if($creacion_historia){
+        return  Redirect::to('/ave')->with('crear', 'El cliente se creo correctamente');
+       }
+       return response(["data"=>"error"]);
+        
+       
+       
     }
 
     /**
