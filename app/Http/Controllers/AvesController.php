@@ -48,6 +48,7 @@ class AvesController extends Controller
        $agregar_pollo->Madre=$request->Madre;
        $agregar_pollo->Padre=$request->Padre;
        $agregar_pollo->Fecha_nacimiento=$request->Fecha_nacimiento;
+       $agregar_pollo->estado="Vivo";
        $agregar_pollo->Observacion=$request->Observacion;
        $agregar_pollo->save();
 
@@ -107,6 +108,7 @@ class AvesController extends Controller
         $ave->Candado=$request->Candado;
         $ave->Madre=$request->Madre;
         $ave->Padre=$request->Padre;
+        $ave->estado=$request->estado;;
         $ave->Observacion=$request->Observacion;
         $ave->save();
         return  Redirect::to('/ave')->with('actualiza', 'El cliente se creo correctamente');

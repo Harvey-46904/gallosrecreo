@@ -19,3 +19,6 @@ Route::get('/', function () {
 
 Route::resource("ave","AvesController");
 Route::resource("eventos","EventoController");
+Route::get("vacuna/create","EventoController@formulario_registrar_vacuna");
+Route::get("hc/create","HClinicaController@formulario_hc");
+Route::post("Consulta_hc","HClinicaController@consulta_historia_clinica");

@@ -14,8 +14,8 @@ class EventoController extends Controller
      */
     public function index()
     {
-        $lista_Eventos=Eventos::all();
-        return view("Eventos.Eventos",compact("lista_Eventos"));  
+        $lista_Eventos=evento::all();
+        return view("eventos.eventos",compact("lista_Eventos"));  
     }
 
     /**
@@ -93,5 +93,9 @@ class EventoController extends Controller
     public function destroy(Eventos $eventos)
     {
         //
+    }
+    public function formulario_registrar_vacuna(){
+      return view("vacunas.formulariovacunas");
+
     }
 }

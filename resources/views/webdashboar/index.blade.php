@@ -68,7 +68,7 @@
                     </a>
                     <ul class="cat-sub-menu">
                         <li>
-                            <a href="categories.html">Lista de historias</a>
+                            <a href="{{url('hc/create')}}">Consulta H.C</a>
                         </li>
                     </ul>
                 </li>
@@ -82,7 +82,7 @@
                     </a>
                     <ul class="cat-sub-menu">
                         <li>
-                            <a href="media-01.html">Lista Vacunas </a>
+                            <a href="{{url('vacuna/create')}}">Lista Vacunas </a>
                         </li>
                     </ul>
                 </li>
@@ -234,6 +234,7 @@
       <li><a href="##">Puchase</a></li>
     </ul>
   </div>
+  
 </footer>
   </div>
 </div>

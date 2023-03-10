@@ -27,7 +27,9 @@ class CreateHClinicasTable extends Migration
             ->on("eventos")
             ->onDelete("cascade")
             ->onUpdate("cascade");
+            $table->string("descripcion_hc");
             $table->timestamps();
+            
         });
     }
 

@@ -14,41 +14,27 @@
     <div class="container">
         <div class="row pt-5 justify-content-center">
             <div class="col-md-6">
-            <form method="POST" action="{{url('ave', $ave->id)}}">
+            <form method="POST" action="{{url('hclinica',$clinica)}}">
             @method('PUT')
                 @csrf
+                    
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Placa</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="Placa" value="{{ $ave->Placa}}">
+                        <label for="exampleInputPassword1">Codigo Ave</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="id_ave" value="{{$clinica->id_ave}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Genero</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="Genero" value="{{ $ave->Genero}}">
+                    <label for="exampleInputPassword1">Observacion</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="Observacion" value="{{$clinica->Observacion}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Candado</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="Candado" value="{{ $ave->Candado}}">
+                    <label for="exampleInputPassword1">Enfermedad</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="Enfermedad" value="{{$clinica->Enfermedad}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Madre</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="Madre" value="{{ $ave->Madre}}">
+                    <label for="exampleInputPassword1">Codigo Vacuna</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="id_vacuna" value="{{$clinica->id_vacuna}}">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Padre</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="Padre" value="{{ $ave->Padre}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Fecha_nacimiento</label>
-                        <input type="date" class="form-control" id="exampleInputPassword1" name="Fecha_nacimiento">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Estado</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="estado" value="{{ $ave->estado}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Observacion</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="Observacion" value="{{ $ave->Observacion}}">
-                    </div>
+                   
                     <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             </div>

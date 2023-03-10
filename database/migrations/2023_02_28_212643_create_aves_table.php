@@ -21,6 +21,7 @@ class CreateAvesTable extends Migration
             $table->char("Madre",20);
             $table->char("Padre",20);
             $table->date("Fecha_nacimiento");
+            $table->string("estado");
             $table->text("Observacion");
             $table->timestamps();
         });
