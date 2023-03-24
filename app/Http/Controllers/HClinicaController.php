@@ -26,8 +26,8 @@ class HClinicaController extends Controller
       
       $consultas=DB::table("aves")
       ->select("aves.Placa","aves.Fecha_nacimiento", "eventos.Descripcion_evento","h_clinicas.descripcion_hc","eventos.id","h_clinicas.created_at")
-      ->join("carnets","carnets.Id_ave","=","aves.id")
-      ->join("h_clinicas","h_clinicas.Id_carnet","=","carnets.id")
+      //->join("carnets","carnets.Id_ave","=","aves.id")
+      ->join("h_clinicas","h_clinicas.Id_ave","=","aves.id")
       ->join("eventos","eventos.id","=","h_clinicas.Id_evento")
       ->where("aves.Placa","=",$placa)
       ->get();
