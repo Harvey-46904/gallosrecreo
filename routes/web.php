@@ -13,12 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('dash',"UserController@dashboards");
+
+
 Route::get('/', function () {
-    return view('webdashboar.index');
+    return view('Login.signin');
 });
 
+Route::get("/crear_usuario","UserController@Crear_usuario");
+Route::post("Iniciar_Sesion","UserController@Iniciar_Sesion");
+Route::post("logout","UserController@logout");
 Route::resource("ave","AvesController");
 Route::resource("eventos","EventoController");
 Route::get("vacuna/create","EventoController@formulario_registrar_vacuna");
 Route::get("hc/create","HClinicaController@formulario_hc");
 Route::post("Consulta_hc","HClinicaController@consulta_historia_clinica");
+Route::post("agregar_vacuna","HClinicaController@agregar_vacuna");
+
+
+

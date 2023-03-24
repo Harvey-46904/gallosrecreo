@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* Customers chart */
 
 
-    var customersChart = document.getElementById('customersChart');
+    var customersChart = document.getElementById('tiempo_sucesso');
 
     if (customersChart) {
       var customersChartCanvas = customersChart.getContext('2d');

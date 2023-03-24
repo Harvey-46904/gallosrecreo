@@ -21,7 +21,7 @@
                         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="Fecha_clinica">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Codigo Ave</label>
+                        <label for="exampleInputPassword1" class="">Codigo Ave</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" name="id_ave">
                     </div>
                     <div class="form-group">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\H_clinica;
 use Illuminate\Http\Request;
 use DB;
+use DateTime;
 class HClinicaController extends Controller
 {
    public function crear_historia($creacion_carnet,$id_evento){
@@ -23,16 +24,71 @@ class HClinicaController extends Controller
      $placa=  $request->Placa;
 
       
-      $consulta=DB::table("aves")
-      ->select("aves.Placa", "eventos.Descripcion_evento")
+      $consultas=DB::table("aves")
+      ->select("aves.Placa","aves.Fecha_nacimiento", "eventos.Descripcion_evento","h_clinicas.descripcion_hc","eventos.id","h_clinicas.created_at")
       ->join("carnets","carnets.Id_ave","=","aves.id")
       ->join("h_clinicas","h_clinicas.Id_carnet","=","carnets.id")
       ->join("eventos","eventos.id","=","h_clinicas.Id_evento")
       ->where("aves.Placa","=",$placa)
-    
       ->get();
-      return response(["data"=>$consulta]);
+      $dias=self::dias_vividos($consultas[0]);
+      $graficos=self::Etiquetas_dias($consultas);
+      return view("historiaClinica.consulta",compact("consultas","dias","graficos"));
+      return response(["data"=>$graficos]);
       
+   }
+
+   public function dias_vividos($historia_clinica){
+       $fecha1=new DateTime($historia_clinica->Fecha_nacimiento);
+       $fecha2=new DateTime('NOW');
+       $dias = floor(($fecha1->format('U') - $fecha2->format('U')) / (60*60*24));
+       return $dias;
+   }
+   public function diferencia_dias($origen,$fecha){
+      $fecha1=new DateTime($origen);
+      $fecha2=new DateTime($fecha);
+      $dias = floor(($fecha1->format('U') - $fecha2->format('U')) / (60*60*24));
+      return $dias;
+   }
+
+   public function Etiquetas_dias($historia_clinica){
+            $etiquetas=array();
+            $dias=array();
+
+            foreach ($historia_clinica as $hc) {
+               array_push($etiquetas,$hc->Descripcion_evento);
+               array_push($dias,(self::diferencia_dias($hc->Fecha_nacimiento,$hc->created_at))*-1);
+            }
+            $dias[0]=0;
+      return ["etiquetas"=>$etiquetas,"dias"=>json_encode($dias)];
+   }
+
+   public function agregar_vacuna(Request $request){
+      $placa=$request->Placa;
+      $vacuna=$request->vacuna;
+     
+      /// ide de carnet con placa de ave
+         $consulta_id_carnet=DB::table("aves")
+         ->join("carnets","carnets.Id_ave","=","aves.id")
+         ->select("carnets.id")
+         ->where("aves.Placa","=",$placa)
+         ->get();
+      $id_consulta= $consulta_id_carnet[0]->id;
+      //consultar id_vacunacion
+
+      $consulta_id_vacunacion=DB::table("eventos")
+      ->select("eventos.id")
+      ->where("eventos.Descripcion_evento","=","Vacunacion")
+      ->first();
+      $id_evento=$consulta_id_vacunacion->id;
+
+//creamos en la historia clinica la vacunacion
+      $agregar_vacuna=new H_clinica;
+      $agregar_vacuna->Id_carnet=$id_consulta;
+      $agregar_vacuna->Id_evento=$id_evento;
+      $agregar_vacuna->descripcion_hc=$vacuna;
+      $agregar_vacuna->save();
+      return response($agregar_vacuna);
    }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,13 @@
   <link rel="stylesheet" href="{!! asset('dashboard/css/style.css') !!}">
   
 </head>
-
+@if (Auth::check())
+  
+@else
+  <script>
+    // document.location.href = "/"
+  </script>
+@endif
 <body>
   <div class="layer"></div>
 <!-- ! Body -->
@@ -25,7 +31,7 @@
   <aside class="sidebar">
     <div class="sidebar-start">
         <div class="sidebar-head">
-            <a href="/" class="logo-wrapper" title="Home">
+            <a href="{{url('dash')}}" class="logo-wrapper" title="Home">
                 <span class="sr-only">Home</span>
                 <span class="icon logo" aria-hidden="true"></span>
                 <div class="logo-text">
@@ -42,64 +48,20 @@
         <div class="sidebar-body">
             <ul class="sidebar-body-menu">
                 <li>
-                    <a class="active" href="/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                    <a class="" href="{{url('dash')}}"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon document" aria-hidden="true"></span>Gestion Pollos
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="{{url('ave')}}">Listar Pollos</a>
-                        </li>
-                    </ul>
+                    <a class="" href="{{url('ave')}}"><span class="icon document" aria-hidden="true" href="" ></span>Gestion Pollos</a>
+                    
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon folder" aria-hidden="true"></span>Historias Clinicas
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="{{url('hc/create')}}">Consulta H.C</a>
-                        </li>
-                    </ul>
+                    <a class="" href="{{url('hc/create')}}"><span class="icon folder" aria-hidden="true"></span>Historias Clinicas</a>  
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon image" aria-hidden="true"></span>Gestion Vacunas
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="{{url('vacuna/create')}}">Lista Vacunas </a>
-                        </li>
-                    </ul>
+                    <a class="" href="{{url('vacuna/create')}}"><span class="icon image" aria-hidden="true"></span>Gestion Vacunas</a>
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon paper" aria-hidden="true"></span>Gestion Estadistica
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="pages.html">Listar Estadistica</a>
-                        </li>
-                      
-                    </ul>
+                    <a class="" href="##"><span class="icon paper" aria-hidden="true"></span>Gestion Estadistica</a>
                 </li>
                 <li>
                     <a href="comments.html">
@@ -211,7 +173,10 @@
             </a></li>
           <li><a class="danger" href="##">
               <i data-feather="log-out" aria-hidden="true"></i>
-              <span>Salir</span>
+              <span><form action="{{ url('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit"> Salir </button>
+                            </form></span>
             </a></li>
         </ul>
       </div>
@@ -239,15 +204,16 @@
   </div>
 </div>
 <!-- Chart library -->
+@stack('scripts')
 <script src="{!! asset('dashboard/plugins/chart.min.js') !!}"></script>
 <!-- Icons library -->
 <script src="{!! asset('dashboard/plugins/feather.min.js') !!}"></script>
 <!-- Custom scripts -->
 <script src="{!! asset('dashboard/js/script.js') !!}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

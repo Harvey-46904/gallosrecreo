@@ -12,7 +12,7 @@
         <div class="row pt-5  justify-content-center">
             <div class="col-md-6">
               
-            <form method="POST" action="{{url('ave')}}">
+            <form method="POST" action="{{url('agregar_vacuna')}}">
                 @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail1">Placa Aves</label>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                     <label for="exampleFormControlSelect1">Seleccione Vacunas</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select class="form-control" id="exampleFormControlSelect1" name="vacuna">
                     <option>vacuna de rabia</option>
                     <option>vacuna de achaque</option>
                     <option>vacuna de fiebre</option>
