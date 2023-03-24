@@ -69,8 +69,7 @@ class HClinicaController extends Controller
      
       /// ide de carnet con placa de ave
          $consulta_id_carnet=DB::table("aves")
-         ->join("carnets","carnets.Id_ave","=","aves.id")
-         ->select("carnets.id")
+         ->select("aves.id")
          ->where("aves.Placa","=",$placa)
          ->get();
       $id_consulta= $consulta_id_carnet[0]->id;
@@ -84,7 +83,7 @@ class HClinicaController extends Controller
 
 //creamos en la historia clinica la vacunacion
       $agregar_vacuna=new H_clinica;
-      $agregar_vacuna->Id_carnet=$id_consulta;
+      $agregar_vacuna->Id_ave=$id_consulta;
       $agregar_vacuna->Id_evento=$id_evento;
       $agregar_vacuna->descripcion_hc=$vacuna;
       $agregar_vacuna->save();
