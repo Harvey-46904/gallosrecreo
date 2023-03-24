@@ -12,7 +12,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = 'Hache';
         $user->password = Hash::make('hacher46904');
-        $user->email = 'harveympv@hotmail.com';
+        $user->email = 'user@gmail.com';
         $user->save();
 
         return response(["data"=>"datos guardadoso"]);
