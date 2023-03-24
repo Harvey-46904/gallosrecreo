@@ -15,10 +15,10 @@ class CreateHClinicasTable extends Migration
     {
         Schema::create('h_clinicas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('Id_carnet');
-            $table->foreign("Id_carnet")
+            $table->unsignedBigInteger('Id_ave');
+            $table->foreign("Id_ave")
             ->references("id")
-            ->on("carnets")
+            ->on("aves")
             ->onDelete("cascade")
             ->onUpdate("cascade");
             $table->unsignedBigInteger('Id_evento');

@@ -54,10 +54,10 @@ class AvesController extends Controller
 
        $objeto = new CarnetController();
        $historia = new HClinicaController();
-       $creacion_carnet = $objeto->crear_carnet($agregar_pollo->id);
+      // $creacion_carnet = $objeto->crear_carnet($agregar_pollo->id);
        $id_evento=1;
        
-       $creacion_historia=$historia->crear_historia($creacion_carnet->id,$id_evento);
+       $creacion_historia=$historia->crear_historia($agregar_pollo->id,$id_evento);
        if($creacion_historia){
         return  Redirect::to('/ave')->with('crear', 'El cliente se creo correctamente');
        }
