@@ -11,7 +11,7 @@ class UserController extends Controller
     public function  Crear_usuario(){
         $user = new User();
         $user->name = 'Hache';
-        $user->password = Hash::make('harveydg46904');
+        $user->password = Hash::make('hacher46904');
         $user->email = 'harveympv@hotmail.com';
         $user->save();
 
