@@ -65,29 +65,51 @@ class HClinicaController extends Controller
 
    public function agregar_vacuna(Request $request){
       $placa=$request->Placa;
-      $vacuna=$request->vacuna;
-     
-      /// ide de carnet con placa de ave
-         $consulta_id_carnet=DB::table("aves")
-         ->select("aves.id")
-         ->where("aves.Placa","=",$placa)
-         ->get();
-      $id_consulta= $consulta_id_carnet[0]->id;
-      //consultar id_vacunacion
 
+      $arrayAve=explode(",",$placa);
+      //return response($arrayAve);
+      $vacuna=$request->vacuna;
       $consulta_id_vacunacion=DB::table("eventos")
       ->select("eventos.id")
       ->where("eventos.Descripcion_evento","=","Vacunacion")
-      ->first();
+      ->first();//obtener un unico elemento en objeto
       $id_evento=$consulta_id_vacunacion->id;
+      
+         
+      
+            foreach($arrayAve as $for){
+               $consulta_id_carnet=DB::table("aves")
+               ->select("aves.id")
+               ->where("aves.Placa","=",$for)
+               
+               ->get();//obtener dato en array
+               
+               $id_consulta= $consulta_id_carnet[0]->id;
+               //echo $id_consulta."<br>";
+             if ($id_consulta == null) {
+               echo "dato no existe";
+             }
+             else {
+               $agregar_vacuna=new H_clinica;
+               $agregar_vacuna->Id_ave=$id_consulta;
+               $agregar_vacuna->Id_evento=$id_evento;
+               $agregar_vacuna->descripcion_hc=$vacuna;
+               $agregar_vacuna->save();
+      
+             }
+               
+         }
+      
+      //return response($agregar_vacuna);
+      //return  response (["data"=>"dato recorrido"]);
+      /// ide de carnet con placa de ave
+        
+      //consultar id_vacunacion
 
-//creamos en la historia clinica la vacunacion
-      $agregar_vacuna=new H_clinica;
-      $agregar_vacuna->Id_ave=$id_consulta;
-      $agregar_vacuna->Id_evento=$id_evento;
-      $agregar_vacuna->descripcion_hc=$vacuna;
-      $agregar_vacuna->save();
-      return response($agregar_vacuna);
+      
+
+//creamos en la historia clinica la vacunacion explode
+      
    }
 
 }
