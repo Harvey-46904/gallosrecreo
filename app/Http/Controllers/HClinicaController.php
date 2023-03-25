@@ -65,29 +65,38 @@ class HClinicaController extends Controller
 
    public function agregar_vacuna(Request $request){
       $placa=$request->Placa;
+      $ave = explode(",", $placa);
+      
       $vacuna=$request->vacuna;
-     
-      /// ide de carnet con placa de ave
-         $consulta_id_carnet=DB::table("aves")
-         ->select("aves.id")
-         ->where("aves.Placa","=",$placa)
-         ->get();
-      $id_consulta= $consulta_id_carnet[0]->id;
-      //consultar id_vacunacion
-
       $consulta_id_vacunacion=DB::table("eventos")
       ->select("eventos.id")
       ->where("eventos.Descripcion_evento","=","Vacunacion")
       ->first();
       $id_evento=$consulta_id_vacunacion->id;
 
-//creamos en la historia clinica la vacunacion
-      $agregar_vacuna=new H_clinica;
-      $agregar_vacuna->Id_ave=$id_consulta;
-      $agregar_vacuna->Id_evento=$id_evento;
-      $agregar_vacuna->descripcion_hc=$vacuna;
-      $agregar_vacuna->save();
+      foreach($ave as $av){
+         $consulta_id_carnet=DB::table("aves")
+         ->select("aves.id")
+         ->where("aves.Placa","=",$av)
+         ->get();
+         $id_consulta= $consulta_id_carnet[0]->id;
+      }
+         if($id_consulta != null){
+            echo "Dato no encontrado";
+         }else{
+            $agregar_vacuna=new H_clinica;
+            $agregar_vacuna->Id_ave=$id_consulta;
+            $agregar_vacuna->Id_evento=$id_evento;
+            $agregar_vacuna->descripcion_hc=$vacuna;
+            $agregar_vacuna->save();
+      }
       return response($agregar_vacuna);
-   }
+     
+      /// ide de carnet con placa de ave    
+
+      
+
+//creamos en la historia clinica la vacunacion
+      }
 
 }
