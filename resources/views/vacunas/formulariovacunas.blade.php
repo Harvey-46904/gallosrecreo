@@ -24,7 +24,7 @@
             @endif
             @if (isset($data["no"]) && sizeof($data["no"])>0)
             <div class="alert alert-danger">
-              <strong>ocurrio un error con el registro de las siguientes placas: </strong>
+              <strong>ocurrio un error con el registro de la placas: </strong>
               @foreach  ($data["no"] as $no)
                   {{ $no.","}}
               @endforeach 
