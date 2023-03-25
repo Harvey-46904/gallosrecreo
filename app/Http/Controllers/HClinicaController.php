@@ -6,6 +6,7 @@ use App\Models\H_clinica;
 use Illuminate\Http\Request;
 use DB;
 use DateTime;
+use Redirect;
 class HClinicaController extends Controller
 {
    public function crear_historia($creacion_carnet,$id_evento){
@@ -64,30 +65,49 @@ class HClinicaController extends Controller
    }
 
    public function agregar_vacuna(Request $request){
+      $array_errores=array();
+      $array_registrados=array();
       $placa=$request->Placa;
       $vacuna=$request->vacuna;
      
-      /// ide de carnet con placa de ave
-         $consulta_id_carnet=DB::table("aves")
-         ->select("aves.id")
-         ->where("aves.Placa","=",$placa)
-         ->get();
-      $id_consulta= $consulta_id_carnet[0]->id;
-      //consultar id_vacunacion
-
+      $array_ave=explode(",",$placa);
       $consulta_id_vacunacion=DB::table("eventos")
       ->select("eventos.id")
       ->where("eventos.Descripcion_evento","=","Vacunacion")
       ->first();
+
       $id_evento=$consulta_id_vacunacion->id;
 
-//creamos en la historia clinica la vacunacion
-      $agregar_vacuna=new H_clinica;
-      $agregar_vacuna->Id_ave=$id_consulta;
-      $agregar_vacuna->Id_evento=$id_evento;
-      $agregar_vacuna->descripcion_hc=$vacuna;
-      $agregar_vacuna->save();
+      foreach ($array_ave as $a ) {
+         $consulta_id_carnet=DB::table("aves")
+         ->select("aves.id")
+         ->where("aves.Placa","=",$a)
+         ->get();
+         // return response(["data"=>$consulta_id_carnet]);
+       //  return response(["data"=>$consulta_id_carnet,"id ave"=>$a]);
+         if(sizeof($consulta_id_carnet)==0){
+           array_push($array_errores,$a);
+         }else{
+            array_push($array_registrados,$a);
+            $id_consulta= $consulta_id_carnet[0]->id;
+            $agregar_vacuna=new H_clinica;
+            $agregar_vacuna->Id_ave=$id_consulta;
+            $agregar_vacuna->Id_evento=$id_evento;
+            $agregar_vacuna->descripcion_hc=$vacuna;
+            $agregar_vacuna->save();
+         }
+
+        
+      }
+
+      $datos_obtenidos=["exis"=>$array_registrados,"no"=>$array_errores];
+      return Redirect::route('vacuna')->with( ['data' => $datos_obtenidos] );
+     // return response(["registrados"=>$array_registrados,"no registrados"=>$array_errores]);
+      return Redirect()->with($datos_obtenidos);
+      return response(["id no existentes"=>$array_errores]);
       return response($agregar_vacuna);
-   }
+      //creamos en la historia clinica la vacunacion
+         
+         }
 
 }

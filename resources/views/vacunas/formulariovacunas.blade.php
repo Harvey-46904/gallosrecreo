@@ -11,7 +11,26 @@
    <div class="container">
         <div class="row pt-5  justify-content-center">
             <div class="col-md-6">
-              
+           <?php $data=Session::get('data') ?>
+        
+            @if (isset($data["exis"]) && sizeof($data["exis"])>0)
+            <div class="alert alert-success">
+              <strong>Se registraron las siguientes placas: </strong> 
+              @foreach  ($data["exis"] as $exis)
+                  {{ $exis.","}}
+              @endforeach
+             
+            </div>
+            @endif
+            @if (isset($data["no"]) && sizeof($data["no"])>0)
+            <div class="alert alert-danger">
+              <strong>ocurrio un error con el registro de las siguientes placas: </strong>
+              @foreach  ($data["no"] as $no)
+                  {{ $no.","}}
+              @endforeach 
+             
+            </div>
+            @endif
             <form method="POST" action="{{url('agregar_vacuna')}}">
                 @csrf
                     <div class="form-group">
@@ -38,72 +57,7 @@
             
         </div>
        
-        <div class="row">
-            <div class="col-md-12 pt-2">
-            <table class="table ">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-            </div>
-
-        </div>
+     
     </div>
     </article>
           </div>
